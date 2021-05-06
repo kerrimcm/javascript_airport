@@ -23,4 +23,8 @@ describe('Airport', () => {
     airport.clearForTakeOff(plane);
     expect(airport.planes()).not.toEqual([plane]);
   });
+
+  it('has a default capactiy', function() {
+    expect(airport.capacity()).toEqual(20);
+  });
 });
