@@ -5,6 +5,7 @@ class Airport{
     const defaultCapacity = 20
     this._hangar = []
     this._capacity = defaultCapacity
+    this.weather = new Weather();
   }
 
   planes() {
@@ -20,7 +21,11 @@ class Airport{
   };
 
   clearForTakeOff(plane) {
-    this._hangar.pop(plane);
+    if(this._isItStormy()) {
+      throw 'Stormy weather, do not take off';
+    } else {
+      this._hangar.pop(plane);
+    };
   };
 
   capacity() {
@@ -33,5 +38,9 @@ class Airport{
 
   _isFull() {
     return this._hangar.length === this._capacity
+  };
+
+  _isItStormy() {
+    return this.weather._isStormy
   };
 };

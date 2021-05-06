@@ -19,6 +19,7 @@ describe('Airport', () => {
   });
 
   it('can clear planes for take off', function() {
+    spyOn(airport, '_isItStormy').and.callFake(function() { return false });
     airport.clearForLanding(plane);
     airport.clearForTakeOff(plane);
     expect(airport.planes()).not.toEqual([plane]);
@@ -31,5 +32,10 @@ describe('Airport', () => {
   it('can change capacity', function() {
     airport.changeCapacity(100);
     expect(airport.capacity()).toEqual(100);
+  });
+
+  it('throws errors for stormy weather on take off', function() {
+    spyOn(airport, '_isItStormy').and.callFake(function() { return true });
+    expect(function() { airport.clearForTakeOff() } ).toThrow('Stormy weather, do not take off');
   });
 });
