@@ -27,4 +27,9 @@ describe('Airport', () => {
   it('has a default capactiy', function() {
     expect(airport.capacity()).toEqual(20);
   });
+
+  it('can change capacity', function() {
+    airport.changeCapacity(100);
+    expect(airport.capacity()).toEqual(100);
+  });
 });

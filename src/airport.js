@@ -2,8 +2,9 @@
 
 class Airport{
   constructor() {
+    const defaultCapacity = 20
     this._hangar = []
-    this._capacity = 20
+    this._capacity = defaultCapacity
   }
 
   planes() {
@@ -24,6 +25,10 @@ class Airport{
 
   capacity() {
     return this._capacity;
+  };
+
+  changeCapacity(newCapacity) {
+    this._capacity = newCapacity;
   };
 
   _isFull() {

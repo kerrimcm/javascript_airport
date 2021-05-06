@@ -26,4 +26,12 @@ describe ('Feature Test:', function() {
     };
     expect(function() { plane.land(airport) } ).toThrow('Airport is full');
   });
+
+  it('can change capacity of airport', function() {
+    airport.changeCapacity(10)
+    for ( let i = 0; i < 10; i++ ) {
+      plane.land(airport);
+    };
+    expect(function() { plane.land(airport) } ).toThrow('Airport is full');
+  });
 });
