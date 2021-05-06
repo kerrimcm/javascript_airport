@@ -14,6 +14,7 @@ describe('Airport', () => {
   });
 
   it('can clear planes for landing', function() {
+    spyOn(airport, '_isItStormy').and.callFake(function() { return false });
     airport.clearForLanding(plane);
     expect(airport.planes()).toEqual([plane]);
   });
@@ -37,5 +38,10 @@ describe('Airport', () => {
   it('throws errors for stormy weather on take off', function() {
     spyOn(airport, '_isItStormy').and.callFake(function() { return true });
     expect(function() { airport.clearForTakeOff() } ).toThrow('Stormy weather, do not take off');
+  });
+
+  it('throws errors for stormy weather on landing', function() {
+    spyOn(airport, '_isItStormy').and.callFake(function() { return true });
+    expect(function() { airport.clearForLanding() } ).toThrow('Stormy weather, do not land');
   });
 });

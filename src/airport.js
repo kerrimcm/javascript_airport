@@ -15,6 +15,8 @@ class Airport{
   clearForLanding(plane) {
     if(this._isFull()) {
       throw 'Airport is full';
+    } else if(this._isItStormy()) {
+      throw 'Stormy weather, do not land';
     } else {
       this._hangar.push(plane); 
     };

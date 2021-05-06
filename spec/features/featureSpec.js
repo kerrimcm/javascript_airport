@@ -3,15 +3,14 @@
 describe ('Feature Test:', function() {
   let plane;
   let airport;
-  let weather;
   
   beforeEach(() => {
     plane = new Plane();
     airport = new Airport();
-    weather = new Weather();
   }); 
 
   it('can land a plane', function() {
+    spyOn(airport, '_isItStormy').and.callFake(function() { return false });
     plane.land(airport);
     expect(airport.planes()).toContain(plane);
   });
@@ -24,6 +23,7 @@ describe ('Feature Test:', function() {
   });
 
   it('prevents landing when airport is full', function() {
+    spyOn(airport, '_isItStormy').and.callFake(function() { return false });
     for ( let i = 0; i < 20; i++ ) {
       plane.land(airport);
     };
@@ -31,6 +31,7 @@ describe ('Feature Test:', function() {
   });
 
   it('can change capacity of airport', function() {
+    spyOn(airport, '_isItStormy').and.callFake(function() { return false });
     airport.changeCapacity(10)
     for ( let i = 0; i < 10; i++ ) {
       plane.land(airport);
@@ -40,7 +41,12 @@ describe ('Feature Test:', function() {
 
   it('prevents take off when weather is stormy', function() {
     spyOn(airport, '_isItStormy').and.callFake(function() { return true });
-    plane.land(airport);
+    airport._hangar = [plane];
     expect(function() { plane.takeOff(airport) } ).toThrow('Stormy weather, do not take off');
+  });
+
+  it('prevents landing when weather is stormy', function() {
+    spyOn(airport, '_isItStormy').and.callFake(function() { return true });
+    expect(function() { plane.land(airport) } ).toThrow('Stormy weather, do not land');
   });
 });
