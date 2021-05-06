@@ -4,7 +4,6 @@ describe ('Feature Test:', function() {
   let plane;
   let airport;
   
-
   beforeEach(() => {
     plane = new Plane();
     airport = new Airport();
